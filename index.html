@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="title">Breakout Calendar</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 data-i18n="gameTitle">Breakout Calendar</h1>
+            <div class="language-selector">
+                <button onclick="changeLanguage('pt')" class="lang-btn">PT</button>
+                <button onclick="changeLanguage('en')" class="lang-btn">EN</button>
+                <button onclick="changeLanguage('es')" class="lang-btn">ES</button>
+            </div>
+        </header>
+
+        <main>
+            <div id="gameScreen" class="game-screen hidden">
+                <div class="game-info">
+                    <div class="player-info">
+                        <span data-i18n="player">Jogador:</span> <span id="playerName"></span>
+                    </div>
+                    <div class="score-info">
+                        <span data-i18n="score">Pontos:</span> <span id="score">0</span>
+                    </div>
+                    <div class="lives-info">
+                        <span data-i18n="lives">Vidas:</span> <span id="lives">3</span>
+                    </div>
+                </div>
+                <canvas id="gameCanvas" width="800" height="600"></canvas>
+                <div class="game-controls">
+                    <button id="pauseBtn" data-i18n="pause">Pausar</button>
+                    <button id="restartBtn" data-i18n="restart">Reiniciar</button>
+                </div>
+            </div>
+
+            <div id="startScreen" class="start-screen">
+                <h2 data-i18n="welcome">Bem-vindo ao Breakout Calendar!</h2>
+                <p data-i18n="instructions">Quebre os compromissos da sua agenda com a bola!</p>
+                
+                <div class="legend">
+                    <h3 data-i18n="legend">Legenda dos Blocos:</h3>
+                    <div class="legend-item">
+                        <div class="legend-color light"></div>
+                        <span data-i18n="lightAppointment">Compromisso Leve (1 hit)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color medium"></div>
+                        <span data-i18n="mediumAppointment">Compromisso Médio (2 hits)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color meeting"></div>
+                        <span data-i18n="meetingAppointment">Reunião (3 hits)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color allhands"></div>
+                        <span data-i18n="allHandsAppointment">All Hands (Indestrutível)</span>
+                    </div>
+                </div>
+
+                <div class="player-input">
+                    <label for="playerNameInput" data-i18n="enterName">Digite seu nome (máx 3 letras):</label>
+                    <input type="text" id="playerNameInput" maxlength="3" placeholder="ABC">
+                    <button id="startBtn" data-i18n="start">Começar</button>
+                </div>
+
+                <div class="records">
+                    <h3 data-i18n="records">Recordes:</h3>
+                    <div id="recordsList"></div>
+                </div>
+            </div>
+
+            <div id="gameOverScreen" class="game-over-screen hidden">
+                <h2 data-i18n="gameOver">Fim de Jogo!</h2>
+                <p><span data-i18n="finalScore">Pontuação Final:</span> <span id="finalScore">0</span></p>
+                <p><span data-i18n="blocksDestroyed">Blocos Destruídos:</span> <span id="blocksDestroyed">0</span></p>
+                <button id="playAgainBtn" data-i18n="playAgain">Jogar Novamente</button>
+            </div>
+        </main>
+
+        <footer>
+            <a href="https://github.com/dwildt/breakoutcalendar" target="_blank" data-i18n="sourceCode">Código Fonte</a>
+            |
+            <a href="https://github.com/sponsors/dwildt" target="_blank" data-i18n="sponsor">Apoiar</a>
+        </footer>
+    </div>
+
+    <script src="js/i18n.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/records.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

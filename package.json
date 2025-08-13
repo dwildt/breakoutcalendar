@@ -1,0 +1,40 @@
+{
+  "name": "breakout-calendar",
+  "version": "1.0.0",
+  "description": "A Breakout/Arkanoid game with calendar appointments theme",
+  "main": "index.html",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "serve": "npx http-server -p 8080",
+    "build": "echo 'No build step needed for vanilla JS'",
+    "lint": "echo 'No linter configured'"
+  },
+  "keywords": [
+    "game",
+    "breakout",
+    "arkanoid",
+    "calendar",
+    "javascript",
+    "vanilla-js"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "jest-environment-jsdom": "^29.0.0"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "setupFilesAfterEnv": ["<rootDir>/tests/setup.js"],
+    "collectCoverageFrom": [
+      "js/**/*.js",
+      "!js/main.js"
+    ],
+    "coverageDirectory": "coverage",
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  }
+}
