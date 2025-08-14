@@ -65,7 +65,20 @@ class I18nManager {
                 recordsImported: "Recordes importados com sucesso!",
                 importError: "Erro ao importar recordes. Verifique o arquivo.",
                 newRecord: "Novo recorde! Parabéns!",
-                touchInstructions: "Toque e arraste na tela para mover a raquete"
+                touchInstructions: "Toque e arraste na tela para mover a raquete",
+                gameControls: "Controles do Jogo",
+                controlArrows: "Setas ←/→ ou A/D:",
+                controlMovepaddle: "Mover raquete",
+                controlMouse: "Mouse/Touch:",
+                controlSpace: "Espaço:",
+                controlPause: "Pausar/Retomar",
+                controlEsc: "ESC:",
+                controlBackToMenu: "Voltar ao menu",
+                exportRecords: "Exportar Recordes",
+                importRecords: "Importar Recordes",
+                clearRecords: "Limpar Recordes",
+                close: "Fechar",
+                advancedControls: "Controles"
             },
             en: {
                 title: "Breakout Calendar",
@@ -106,7 +119,20 @@ class I18nManager {
                 recordsImported: "Records imported successfully!",
                 importError: "Error importing records. Check the file.",
                 newRecord: "New record! Congratulations!",
-                touchInstructions: "Touch and drag on screen to move the paddle"
+                touchInstructions: "Touch and drag on screen to move the paddle",
+                gameControls: "Game Controls",
+                controlArrows: "Arrow keys ←/→ or A/D:",
+                controlMovepaddle: "Move paddle",
+                controlMouse: "Mouse/Touch:",
+                controlSpace: "Space:",
+                controlPause: "Pause/Resume",
+                controlEsc: "ESC:",
+                controlBackToMenu: "Back to menu",
+                exportRecords: "Export Records",
+                importRecords: "Import Records",
+                clearRecords: "Clear Records",
+                close: "Close",
+                advancedControls: "Controls"
             },
             es: {
                 title: "Breakout Calendar",
@@ -147,7 +173,20 @@ class I18nManager {
                 recordsImported: "¡Récords importados exitosamente!",
                 importError: "Error al importar récords. Verifica el archivo.",
                 newRecord: "¡Nuevo récord! ¡Felicitaciones!",
-                touchInstructions: "Toca y arrastra en la pantalla para mover la paleta"
+                touchInstructions: "Toca y arrastra en la pantalla para mover la paleta",
+                gameControls: "Controles del Juego",
+                controlArrows: "Flechas ←/→ o A/D:",
+                controlMovepaddle: "Mover paleta",
+                controlMouse: "Mouse/Touch:",
+                controlSpace: "Espacio:",
+                controlPause: "Pausar/Reanudar",
+                controlEsc: "ESC:",
+                controlBackToMenu: "Volver al menú",
+                exportRecords: "Exportar Récords",
+                importRecords: "Importar Récords",
+                clearRecords: "Limpiar Récords",
+                close: "Cerrar",
+                advancedControls: "Controles"
             }
         };
     }

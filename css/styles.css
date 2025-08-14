@@ -23,73 +23,54 @@ body {
     background: linear-gradient(135deg, var(--background) 0%, var(--dark-brown) 100%);
     color: var(--text-light);
     min-height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
-}
-
-header {
+    padding: 15px;
+    height: 100vh;
+    max-height: 100vh;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-    padding: 20px 0;
-    border-bottom: 2px solid var(--wildtech-orange);
+    flex-direction: column;
+    overflow: hidden;
 }
 
-header h1 {
-    color: var(--wildtech-orange);
-    font-size: 2.5rem;
-    font-weight: bold;
-    text-shadow: 2px 2px 4px var(--shadow);
-}
-
-.language-selector {
-    display: flex;
-    gap: 10px;
-}
-
-.lang-btn {
-    padding: 8px 16px;
-    background: var(--wildtech-orange);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.3s ease;
-}
-
-.lang-btn:hover {
-    background: var(--light-orange);
-    transform: translateY(-2px);
-}
 
 main {
-    min-height: 60vh;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    min-height: 0;
 }
 
 .game-screen {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
 }
 
 .game-info {
     display: flex;
     justify-content: space-around;
-    margin-bottom: 20px;
-    padding: 15px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    padding: 12px;
     background: rgba(139, 69, 19, 0.3);
     border-radius: 10px;
     flex-wrap: wrap;
+    order: 2;
 }
 
 .game-info > div {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: bold;
-    margin: 5px;
+    margin: 3px;
 }
 
 #gameCanvas {
@@ -99,14 +80,20 @@ main {
     box-shadow: 0 4px 15px var(--shadow);
     max-width: 100%;
     height: auto;
+    order: 1;
+    flex: 1;
+    margin-bottom: 10px;
+    max-height: 70vh;
+    min-height: 300px;
 }
 
 .game-controls {
-    margin-top: 20px;
+    margin-top: 10px;
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 15px;
     flex-wrap: wrap;
+    order: 3;
 }
 
 .start-screen, .game-over-screen {
@@ -115,6 +102,8 @@ main {
     background: rgba(139, 69, 19, 0.2);
     border-radius: 15px;
     box-shadow: 0 4px 20px var(--shadow);
+    overflow-y: auto;
+    max-height: 100%;
 }
 
 .start-screen h2, .game-over-screen h2 {
@@ -252,48 +241,130 @@ button:disabled {
 }
 
 footer {
-    margin-top: 50px;
-    padding: 20px 0;
-    text-align: center;
+    margin-top: 20px;
+    padding: 15px 0;
     border-top: 1px solid var(--wildtech-orange);
     color: #ccc;
+    flex-shrink: 0;
 }
 
-footer a {
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.footer-links {
+    text-align: left;
+}
+
+.footer-links a {
     color: var(--wildtech-orange);
     text-decoration: none;
     margin: 0 10px;
     transition: color 0.3s ease;
 }
 
-footer a:hover {
+.footer-links a:hover {
     color: var(--light-orange);
 }
 
+.footer-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.advanced-controls-btn {
+    padding: 6px 12px;
+    background: var(--wildtech-brown);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.advanced-controls-btn:hover {
+    background: var(--dark-brown);
+    transform: translateY(-2px);
+}
+
+.language-selector {
+    display: flex;
+    gap: 8px;
+}
+
+.lang-btn {
+    padding: 6px 12px;
+    background: var(--wildtech-orange);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.lang-btn:hover {
+    background: var(--light-orange);
+    transform: translateY(-2px);
+}
+
 @media (max-width: 768px) {
-    header {
+    .container {
+        padding: 10px;
+        height: 100vh;
+        max-height: 100vh;
+    }
+    
+    body {
+        overflow: hidden;
+    }
+    
+    .game-screen {
+        height: calc(100vh - 120px);
+        max-height: calc(100vh - 120px);
+    }
+    
+    .footer-content {
         flex-direction: column;
-        gap: 15px;
+        gap: 10px;
+    }
+    
+    .footer-links {
         text-align: center;
     }
     
-    header h1 {
-        font-size: 2rem;
-    }
-    
-    .container {
-        padding: 10px;
+    .footer-controls {
+        justify-content: center;
     }
     
     .game-info {
-        flex-direction: column;
+        flex-direction: row;
+        justify-content: space-around;
         text-align: center;
+        margin-top: 10px;
+        margin-bottom: 8px;
+        padding: 8px;
+    }
+    
+    .game-info > div {
+        font-size: 0.9rem;
+        margin: 2px;
     }
     
     #gameCanvas {
         width: 100%;
-        max-width: 400px;
-        height: 300px;
+        max-width: 100%;
+        height: auto;
+        max-height: calc(100vh - 200px);
+        min-height: 250px;
     }
     
     .legend {
@@ -306,29 +377,55 @@ footer a:hover {
     }
     
     .game-controls {
-        flex-direction: column;
-        align-items: center;
+        flex-direction: row;
+        justify-content: center;
+        margin-top: 8px;
+        gap: 10px;
+    }
+    
+    footer {
+        margin-top: 15px;
+        padding: 10px 0;
     }
 }
 
 @media (max-width: 480px) {
-    header h1 {
-        font-size: 1.5rem;
+    .game-screen {
+        height: calc(100vh - 110px);
+        max-height: calc(100vh - 110px);
+    }
+    
+    .game-info > div {
+        font-size: 0.8rem;
     }
     
     .start-screen, .game-over-screen {
-        padding: 20px;
+        padding: 15px;
     }
     
     button {
-        width: 100%;
-        max-width: 200px;
-        margin: 5px 0;
+        padding: 10px 20px;
+        font-size: 1rem;
+    }
+    
+    .game-controls button {
+        width: auto;
+        min-width: 100px;
     }
     
     #gameCanvas {
-        max-width: 300px;
-        height: 200px;
+        max-height: calc(100vh - 180px);
+        min-height: 200px;
+    }
+    
+    .lang-btn {
+        padding: 5px 10px;
+        font-size: 0.8rem;
+    }
+    
+    .advanced-controls-btn {
+        padding: 5px 10px;
+        font-size: 0.8rem;
     }
 }
 

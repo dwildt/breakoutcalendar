@@ -37,5 +37,18 @@
   "recordsImported": "Recordes importados com sucesso!",
   "importError": "Erro ao importar recordes. Verifique o arquivo.",
   "newRecord": "Novo recorde! Parabéns!",
-  "touchInstructions": "Toque e arraste na tela para mover a raquete"
+  "touchInstructions": "Toque e arraste na tela para mover a raquete",
+  "gameControls": "Controles do Jogo",
+  "controlArrows": "Setas ←/→ ou A/D:",
+  "controlMovepaddle": "Mover raquete",
+  "controlMouse": "Mouse/Touch:",
+  "controlSpace": "Espaço:",
+  "controlPause": "Pausar/Retomar",
+  "controlEsc": "ESC:",
+  "controlBackToMenu": "Voltar ao menu",
+  "exportRecords": "Exportar Recordes",
+  "importRecords": "Importar Recordes",
+  "clearRecords": "Limpar Recordes",
+  "close": "Fechar",
+  "advancedControls": "Controles"
 }

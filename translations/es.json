@@ -37,5 +37,18 @@
   "recordsImported": "¡Récords importados exitosamente!",
   "importError": "Error al importar récords. Verifica el archivo.",
   "newRecord": "¡Nuevo récord! ¡Felicitaciones!",
-  "touchInstructions": "Toca y arrastra en la pantalla para mover la paleta"
+  "touchInstructions": "Toca y arrastra en la pantalla para mover la paleta",
+  "gameControls": "Controles del Juego",
+  "controlArrows": "Flechas ←/→ o A/D:",
+  "controlMovepaddle": "Mover paleta",
+  "controlMouse": "Mouse/Touch:",
+  "controlSpace": "Espacio:",
+  "controlPause": "Pausar/Reanudar",
+  "controlEsc": "ESC:",
+  "controlBackToMenu": "Volver al menú",
+  "exportRecords": "Exportar Récords",
+  "importRecords": "Importar Récords",
+  "clearRecords": "Limpiar Récords",
+  "close": "Cerrar",
+  "advancedControls": "Controles"
 }

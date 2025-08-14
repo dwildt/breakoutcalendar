@@ -37,5 +37,18 @@
   "recordsImported": "Records imported successfully!",
   "importError": "Error importing records. Check the file.",
   "newRecord": "New record! Congratulations!",
-  "touchInstructions": "Touch and drag on screen to move the paddle"
+  "touchInstructions": "Touch and drag on screen to move the paddle",
+  "gameControls": "Game Controls",
+  "controlArrows": "Arrow keys ←/→ or A/D:",
+  "controlMovepaddle": "Move paddle",
+  "controlMouse": "Mouse/Touch:",
+  "controlSpace": "Space:",
+  "controlPause": "Pause/Resume",
+  "controlEsc": "ESC:",
+  "controlBackToMenu": "Back to menu",
+  "exportRecords": "Export Records",
+  "importRecords": "Import Records",
+  "clearRecords": "Clear Records",
+  "close": "Close",
+  "advancedControls": "Controls"
 }

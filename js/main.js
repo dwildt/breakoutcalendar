@@ -202,11 +202,16 @@ function addGameControls() {
         touchControls.className = 'touch-controls';
         touchControls.innerHTML = `
             <div class="touch-instructions">
-                <p>${(typeof getText === 'function' ? getText('touchInstructions') : null) || 'Toque e arraste na tela para mover a raquete'}</p>
+                <p data-i18n="touchInstructions">Toque e arraste na tela para mover a raquete</p>
             </div>
         `;
         
         controlsDiv.parentNode.insertBefore(touchControls, controlsDiv);
+        
+        // Apply translations to the newly created element
+        if (typeof i18nManager !== 'undefined' && i18nManager.updateTexts) {
+            i18nManager.updateTexts();
+        }
     }
 }
 
@@ -217,16 +222,6 @@ function handleVisibilityChange() {
 }
 
 document.addEventListener('visibilitychange', handleVisibilityChange);
-
-function createAdvancedControls() {
-    const advancedBtn = document.createElement('button');
-    advancedBtn.textContent = 'Controles Avançados';
-    advancedBtn.className = 'advanced-controls-btn';
-    advancedBtn.onclick = showAdvancedControls;
-    
-    const footer = document.querySelector('footer');
-    footer.parentNode.insertBefore(advancedBtn, footer);
-}
 
 function showAdvancedControls() {
     // Check if modal already exists
@@ -240,23 +235,28 @@ function showAdvancedControls() {
     modal.className = 'modal';
     modal.innerHTML = `
         <div class="modal-content">
-            <h3>Controles do Jogo</h3>
+            <h3 data-i18n="gameControls">Controles do Jogo</h3>
             <div class="controls-list">
-                <p><strong>Setas ←/→ ou A/D:</strong> Mover raquete</p>
-                <p><strong>Mouse/Touch:</strong> Mover raquete</p>
-                <p><strong>Espaço:</strong> Pausar/Retomar</p>
-                <p><strong>ESC:</strong> Voltar ao menu</p>
+                <p><strong data-i18n="controlArrows">Setas ←/→ ou A/D:</strong> <span data-i18n="controlMovepaddle">Mover raquete</span></p>
+                <p><strong data-i18n="controlMouse">Mouse/Touch:</strong> <span data-i18n="controlMovepaddle">Mover raquete</span></p>
+                <p><strong data-i18n="controlSpace">Espaço:</strong> <span data-i18n="controlPause">Pausar/Retomar</span></p>
+                <p><strong data-i18n="controlEsc">ESC:</strong> <span data-i18n="controlBackToMenu">Voltar ao menu</span></p>
             </div>
             <div class="modal-actions">
-                <button onclick="exportRecords()">Exportar Recordes</button>
-                <button onclick="importRecords()">Importar Recordes</button>
-                <button onclick="clearRecords()">Limpar Recordes</button>
-                <button onclick="closeModal()">Fechar</button>
+                <button onclick="exportRecords()" data-i18n="exportRecords">Exportar Recordes</button>
+                <button onclick="importRecords()" data-i18n="importRecords">Importar Recordes</button>
+                <button onclick="clearRecords()" data-i18n="clearRecords">Limpar Recordes</button>
+                <button onclick="closeModal()" data-i18n="close">Fechar</button>
             </div>
         </div>
     `;
     
     document.body.appendChild(modal);
+    
+    // Apply translations to the modal
+    if (typeof i18nManager !== 'undefined' && i18nManager.updateTexts) {
+        i18nManager.updateTexts();
+    }
     
     window.closeModal = function() {
         const modalToClose = document.querySelector('.modal');
@@ -286,5 +286,4 @@ window.addEventListener('load', function() {
     }
 });
 
-createAdvancedControls();
 addGameControls();

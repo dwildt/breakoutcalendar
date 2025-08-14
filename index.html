@@ -8,17 +8,10 @@
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1 data-i18n="gameTitle">Breakout Calendar</h1>
-            <div class="language-selector">
-                <button onclick="changeLanguage('pt')" class="lang-btn">PT</button>
-                <button onclick="changeLanguage('en')" class="lang-btn">EN</button>
-                <button onclick="changeLanguage('es')" class="lang-btn">ES</button>
-            </div>
-        </header>
 
         <main>
             <div id="gameScreen" class="game-screen hidden">
+                <canvas id="gameCanvas" width="800" height="600"></canvas>
                 <div class="game-info">
                     <div class="player-info">
                         <span data-i18n="player">Jogador:</span> <span id="playerName"></span>
@@ -30,7 +23,6 @@
                         <span data-i18n="lives">Vidas:</span> <span id="lives">3</span>
                     </div>
                 </div>
-                <canvas id="gameCanvas" width="800" height="600"></canvas>
                 <div class="game-controls">
                     <button id="pauseBtn" data-i18n="pause">Pausar</button>
                     <button id="restartBtn" data-i18n="restart">Reiniciar</button>
@@ -82,9 +74,22 @@
         </main>
 
         <footer>
-            <a href="https://github.com/dwildt/breakoutcalendar" target="_blank" data-i18n="sourceCode">Código Fonte</a>
-            |
-            <a href="https://github.com/sponsors/dwildt" target="_blank" data-i18n="sponsor">Apoiar</a>
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="https://github.com/dwildt/breakoutcalendar" target="_blank" data-i18n="sourceCode">Código Fonte</a>
+                    |
+                    <a href="https://github.com/sponsors/dwildt" target="_blank" data-i18n="sponsor">Apoiar</a>
+                </div>
+                <div class="footer-controls">
+                    <button id="advancedControlsBtn" class="advanced-controls-btn" onclick="showAdvancedControls()" data-i18n="advancedControls">Controles</button>
+                    |
+                    <div class="language-selector">
+                        <button onclick="changeLanguage('pt')" class="lang-btn">PT</button>
+                        <button onclick="changeLanguage('en')" class="lang-btn">EN</button>
+                        <button onclick="changeLanguage('es')" class="lang-btn">ES</button>
+                    </div>
+                </div>
+            </div>
         </footer>
     </div>
 
