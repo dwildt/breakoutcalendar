@@ -12,6 +12,101 @@
     --shadow: rgba(0, 0, 0, 0.3);
 }
 
+/* Severance Mode Theme */
+body.severance-mode {
+    --wildtech-orange: #00d4aa;
+    --wildtech-brown: #1f2937;
+    --light-orange: #10b981;
+    --dark-brown: #0f172a;
+    --background: #0d1117;
+    --text-light: #00ff41;
+    --text-dark: #1f2937;
+    --success: #38bdf8;
+    --warning: #2563eb;
+    --danger: #1d4ed8;
+    --shadow: rgba(0, 212, 170, 0.2);
+}
+
+/* Severance Mode specific styles */
+body.severance-mode {
+    background: linear-gradient(135deg, #0d1117 0%, #1f2937 100%);
+}
+
+body.severance-mode #gameCanvas {
+    background: #111827;
+    border-color: #00d4aa;
+    box-shadow: 0 0 20px rgba(0, 212, 170, 0.3);
+}
+
+body.severance-mode .game-info {
+    background: rgba(31, 41, 55, 0.6);
+    border: 1px solid rgba(0, 212, 170, 0.3);
+}
+
+body.severance-mode button {
+    background: var(--wildtech-brown);
+    border: 1px solid var(--wildtech-orange);
+    text-shadow: 0 0 8px currentColor;
+    transition: all 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.severance-mode button:hover {
+    box-shadow: 0 0 15px var(--wildtech-orange);
+    transform: translateY(-2px);
+}
+
+body.severance-mode .lang-btn,
+body.severance-mode .advanced-controls-btn {
+    border: 1px solid var(--wildtech-orange);
+}
+
+body.severance-mode footer {
+    background: rgba(15, 23, 42, 0.8);
+    border-top-color: var(--wildtech-orange);
+}
+
+body.severance-mode .modal-content {
+    background: var(--background);
+    border-color: var(--wildtech-orange);
+    box-shadow: 0 0 30px rgba(0, 212, 170, 0.4);
+}
+
+body.severance-mode .start-screen,
+body.severance-mode .game-over-screen {
+    background: rgba(31, 41, 55, 0.4);
+    border: 1px solid rgba(0, 212, 170, 0.3);
+    box-shadow: 0 4px 20px rgba(0, 212, 170, 0.2);
+}
+
+body.severance-mode .legend {
+    background: rgba(17, 24, 39, 0.6);
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid rgba(0, 212, 170, 0.2);
+}
+
+body.severance-mode .legend-item {
+    background: rgba(31, 41, 55, 0.5);
+    border: 1px solid rgba(0, 212, 170, 0.1);
+}
+
+body.severance-mode .player-input {
+    background: rgba(17, 24, 39, 0.5);
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid rgba(0, 212, 170, 0.2);
+}
+
+body.severance-mode .records {
+    background: rgba(17, 24, 39, 0.6);
+    border: 1px solid rgba(0, 212, 170, 0.2);
+}
+
+body.severance-mode .record-item {
+    background: rgba(31, 41, 55, 0.4);
+    border-bottom: 1px solid rgba(0, 212, 170, 0.1);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -277,7 +372,8 @@ footer {
     gap: 8px;
 }
 
-.advanced-controls-btn {
+.advanced-controls-btn,
+.severance-mode-btn {
     padding: 6px 12px;
     background: var(--wildtech-brown);
     color: white;
@@ -289,9 +385,15 @@ footer {
     transition: all 0.3s ease;
 }
 
-.advanced-controls-btn:hover {
+.advanced-controls-btn:hover,
+.severance-mode-btn:hover {
     background: var(--dark-brown);
     transform: translateY(-2px);
+}
+
+.severance-mode-btn.active {
+    background: var(--wildtech-orange);
+    color: var(--background);
 }
 
 .language-selector {
@@ -423,7 +525,8 @@ footer {
         font-size: 0.8rem;
     }
     
-    .advanced-controls-btn {
+    .advanced-controls-btn,
+    .severance-mode-btn {
         padding: 5px 10px;
         font-size: 0.8rem;
     }

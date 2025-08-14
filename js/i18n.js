@@ -78,7 +78,8 @@ class I18nManager {
                 importRecords: "Importar Recordes",
                 clearRecords: "Limpar Recordes",
                 close: "Fechar",
-                advancedControls: "Controles"
+                advancedControls: "Controles",
+                severanceMode: "Modo Severance"
             },
             en: {
                 title: "Breakout Calendar",
@@ -132,7 +133,8 @@ class I18nManager {
                 importRecords: "Import Records",
                 clearRecords: "Clear Records",
                 close: "Close",
-                advancedControls: "Controls"
+                advancedControls: "Controls",
+                severanceMode: "Severance Mode"
             },
             es: {
                 title: "Breakout Calendar",
@@ -186,7 +188,8 @@ class I18nManager {
                 importRecords: "Importar Récords",
                 clearRecords: "Limpiar Récords",
                 close: "Cerrar",
-                advancedControls: "Controles"
+                advancedControls: "Controles",
+                severanceMode: "Modo Severance"
             }
         };
     }

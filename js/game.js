@@ -39,10 +39,10 @@ class BreakoutGame {
         
         this.blocks = [];
         this.blockTypes = {
-            LIGHT: { hits: 1, color: '#4caf50', points: 10 },
-            MEDIUM: { hits: 2, color: '#ff9800', points: 20 },
-            MEETING: { hits: 3, color: '#f44336', points: 30 },
-            ALL_HANDS: { hits: Infinity, color: '#ff7b00', points: 0 }
+            LIGHT: { hits: 1, points: 10 },
+            MEDIUM: { hits: 2, points: 20 },
+            MEETING: { hits: 3, points: 30 },
+            ALL_HANDS: { hits: Infinity, points: 0 }
         };
         
         this.keys = {
@@ -56,6 +56,26 @@ class BreakoutGame {
         // Set fixed canvas dimensions
         this.canvas.width = 800;
         this.canvas.height = 600;
+    }
+    
+    getBlockColors() {
+        const isSeveranceMode = document.body.classList.contains('severance-mode');
+        
+        if (isSeveranceMode) {
+            return {
+                LIGHT: '#38bdf8',      // azul céu
+                MEDIUM: '#2563eb',     // azul cobalto
+                MEETING: '#1d4ed8',    // azul royal
+                ALL_HANDS: '#0284c7'   // azul oceano
+            };
+        } else {
+            return {
+                LIGHT: '#4caf50',      // verde
+                MEDIUM: '#ff9800',     // laranja
+                MEETING: '#f44336',    // vermelho
+                ALL_HANDS: '#ff7b00'   // laranja Wildtech
+            };
+        }
     }
     
     setupEventListeners() {
@@ -341,10 +361,11 @@ class BreakoutGame {
     }
     
     renderBlocks() {
+        const colors = this.getBlockColors();
+        
         this.blocks.forEach(block => {
             if (block.destroyed) return;
             
-            const blockType = this.blockTypes[block.type];
             let alpha = 1;
             
             if (block.type !== 'ALL_HANDS' && block.hits < block.maxHits) {
@@ -355,15 +376,22 @@ class BreakoutGame {
             this.ctx.globalAlpha = alpha;
             
             if (block.type === 'ALL_HANDS') {
+                const isSeveranceMode = document.body.classList.contains('severance-mode');
                 const gradient = this.ctx.createLinearGradient(
                     block.x, block.y, 
                     block.x + block.width, block.y + block.height
                 );
-                gradient.addColorStop(0, '#8b4513');
-                gradient.addColorStop(1, '#ff7b00');
+                
+                if (isSeveranceMode) {
+                    gradient.addColorStop(0, '#0284c7');  // azul oceano
+                    gradient.addColorStop(1, '#0369a1');  // azul profundo
+                } else {
+                    gradient.addColorStop(0, '#8b4513');  // marrom
+                    gradient.addColorStop(1, '#ff7b00');  // laranja
+                }
                 this.ctx.fillStyle = gradient;
             } else {
-                this.ctx.fillStyle = blockType.color;
+                this.ctx.fillStyle = colors[block.type];
             }
             
             this.ctx.fillRect(block.x, block.y, block.width, block.height);
@@ -376,7 +404,14 @@ class BreakoutGame {
     }
     
     renderPaddle() {
-        this.ctx.fillStyle = '#ff7b00';
+        const isSeveranceMode = document.body.classList.contains('severance-mode');
+        
+        if (isSeveranceMode) {
+            this.ctx.fillStyle = '#00d4aa';  // ciano Severance
+        } else {
+            this.ctx.fillStyle = '#ff7b00';  // laranja Wildtech
+        }
+        
         this.ctx.fillRect(this.paddle.x, this.paddle.y, this.paddle.width, this.paddle.height);
         this.ctx.strokeStyle = '#fff';
         this.ctx.lineWidth = 2;
@@ -384,11 +419,19 @@ class BreakoutGame {
     }
     
     renderBall() {
+        const isSeveranceMode = document.body.classList.contains('severance-mode');
+        
         this.ctx.beginPath();
         this.ctx.arc(this.ball.x, this.ball.y, this.ball.radius, 0, Math.PI * 2);
         this.ctx.fillStyle = '#fff';
         this.ctx.fill();
-        this.ctx.strokeStyle = '#ff7b00';
+        
+        if (isSeveranceMode) {
+            this.ctx.strokeStyle = '#00d4aa';  // ciano Severance
+        } else {
+            this.ctx.strokeStyle = '#ff7b00';  // laranja Wildtech
+        }
+        
         this.ctx.lineWidth = 2;
         this.ctx.stroke();
     }

@@ -287,3 +287,37 @@ window.addEventListener('load', function() {
 });
 
 addGameControls();
+
+// Severance Mode functionality
+function toggleSeveranceMode() {
+    const body = document.body;
+    const btn = document.getElementById('severanceModeBtn');
+    
+    if (body.classList.contains('severance-mode')) {
+        // Disable Severance Mode
+        body.classList.remove('severance-mode');
+        btn.classList.remove('active');
+        localStorage.setItem('severanceMode', 'false');
+    } else {
+        // Enable Severance Mode
+        body.classList.add('severance-mode');
+        btn.classList.add('active');
+        localStorage.setItem('severanceMode', 'true');
+    }
+}
+
+function initializeSeveranceMode() {
+    const severanceMode = localStorage.getItem('severanceMode');
+    const body = document.body;
+    const btn = document.getElementById('severanceModeBtn');
+    
+    if (severanceMode === 'true') {
+        body.classList.add('severance-mode');
+        if (btn) btn.classList.add('active');
+    }
+}
+
+// Initialize Severance Mode on page load
+document.addEventListener('DOMContentLoaded', function() {
+    initializeSeveranceMode();
+});
