@@ -79,7 +79,9 @@ class I18nManager {
                 clearRecords: "Limpar Recordes",
                 close: "Fechar",
                 advancedControls: "Controles",
-                severanceMode: "Modo Severance"
+                severanceMode: "Severance",
+                matrixMode: "Matrix",
+                normalMode: "Normal"
             },
             en: {
                 title: "Breakout Calendar",
@@ -189,7 +191,9 @@ class I18nManager {
                 clearRecords: "Limpiar Récords",
                 close: "Cerrar",
                 advancedControls: "Controles",
-                severanceMode: "Modo Severance"
+                severanceMode: "Severance",
+                matrixMode: "Matrix",
+                normalMode: "Normal"
             }
         };
     }

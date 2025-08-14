@@ -51,5 +51,7 @@
   "clearRecords": "Limpar Recordes",
   "close": "Fechar",
   "advancedControls": "Controles",
-  "severanceMode": "Modo Severance"
+  "severanceMode": "Severance",
+  "matrixMode": "Matrix",
+  "normalMode": "Normal"
 }

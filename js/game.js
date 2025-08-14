@@ -59,9 +59,16 @@ class BreakoutGame {
     }
     
     getBlockColors() {
-        const isSeveranceMode = document.body.classList.contains('severance-mode');
+        const body = document.body;
         
-        if (isSeveranceMode) {
+        if (body.classList.contains('matrix-theme')) {
+            return {
+                LIGHT: '#00ff41',      // verde Matrix
+                MEDIUM: '#39ff14',     // verde neon
+                MEETING: '#00cc33',    // verde vibrante
+                ALL_HANDS: '#39ff14'   // verde neon
+            };
+        } else if (body.classList.contains('severance-theme')) {
             return {
                 LIGHT: '#38bdf8',      // azul céu
                 MEDIUM: '#2563eb',     // azul cobalto
@@ -362,6 +369,7 @@ class BreakoutGame {
     
     renderBlocks() {
         const colors = this.getBlockColors();
+        const body = document.body;
         
         this.blocks.forEach(block => {
             if (block.destroyed) return;
@@ -376,13 +384,16 @@ class BreakoutGame {
             this.ctx.globalAlpha = alpha;
             
             if (block.type === 'ALL_HANDS') {
-                const isSeveranceMode = document.body.classList.contains('severance-mode');
                 const gradient = this.ctx.createLinearGradient(
                     block.x, block.y, 
                     block.x + block.width, block.y + block.height
                 );
                 
-                if (isSeveranceMode) {
+                if (body.classList.contains('matrix-theme')) {
+                    gradient.addColorStop(0, '#00cc33');  // verde escuro
+                    gradient.addColorStop(0.5, '#00ff41'); // verde Matrix
+                    gradient.addColorStop(1, '#39ff14');  // verde neon brilhante
+                } else if (body.classList.contains('severance-theme')) {
                     gradient.addColorStop(0, '#0284c7');  // azul oceano
                     gradient.addColorStop(1, '#0369a1');  // azul profundo
                 } else {
@@ -395,18 +406,31 @@ class BreakoutGame {
             }
             
             this.ctx.fillRect(block.x, block.y, block.width, block.height);
-            this.ctx.strokeStyle = '#fff';
-            this.ctx.lineWidth = 1;
-            this.ctx.strokeRect(block.x, block.y, block.width, block.height);
+            
+            // Special styling for ALL_HANDS in Matrix theme
+            if (block.type === 'ALL_HANDS' && body.classList.contains('matrix-theme')) {
+                this.ctx.strokeStyle = '#39ff14';
+                this.ctx.lineWidth = 2;
+                this.ctx.shadowColor = '#39ff14';
+                this.ctx.shadowBlur = 10;
+                this.ctx.strokeRect(block.x, block.y, block.width, block.height);
+                this.ctx.shadowBlur = 0; // Reset shadow
+            } else {
+                this.ctx.strokeStyle = '#fff';
+                this.ctx.lineWidth = 1;
+                this.ctx.strokeRect(block.x, block.y, block.width, block.height);
+            }
             
             this.ctx.restore();
         });
     }
     
     renderPaddle() {
-        const isSeveranceMode = document.body.classList.contains('severance-mode');
+        const body = document.body;
         
-        if (isSeveranceMode) {
+        if (body.classList.contains('matrix-theme')) {
+            this.ctx.fillStyle = '#39ff14';  // verde neon Matrix
+        } else if (body.classList.contains('severance-theme')) {
             this.ctx.fillStyle = '#00d4aa';  // ciano Severance
         } else {
             this.ctx.fillStyle = '#ff7b00';  // laranja Wildtech
@@ -419,14 +443,16 @@ class BreakoutGame {
     }
     
     renderBall() {
-        const isSeveranceMode = document.body.classList.contains('severance-mode');
+        const body = document.body;
         
         this.ctx.beginPath();
         this.ctx.arc(this.ball.x, this.ball.y, this.ball.radius, 0, Math.PI * 2);
         this.ctx.fillStyle = '#fff';
         this.ctx.fill();
         
-        if (isSeveranceMode) {
+        if (body.classList.contains('matrix-theme')) {
+            this.ctx.strokeStyle = '#39ff14';  // verde neon Matrix
+        } else if (body.classList.contains('severance-theme')) {
             this.ctx.strokeStyle = '#00d4aa';  // ciano Severance
         } else {
             this.ctx.strokeStyle = '#ff7b00';  // laranja Wildtech
