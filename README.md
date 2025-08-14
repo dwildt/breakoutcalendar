@@ -69,7 +69,7 @@ O jogo suporta três idiomas:
 - **Inglês (en)**  
 - **Espanhol (es)**
 
-Para mais informações sobre tradução, consulte o arquivo [i18n.md](i18n.md).
+Para mais informações sobre tradução, consulte o arquivo [i18n.md](i18n.md) e a documentação completa do sistema em [translations/translations.md](translations/translations.md).
 
 ## 🏆 Sistema de Recordes
 

@@ -1,6 +1,6 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     try {
-        initializeI18n();
+        await initializeI18n();
         initializeGame();
         displayRecords();
     } catch (error) {
