@@ -6,6 +6,10 @@ Um jogo no estilo Breakout/Arkanoid com tema de agenda de compromissos, desenvol
 
 Quebre os compromissos da sua agenda virtual usando uma raquete e uma bola! Cada tipo de compromisso tem uma resistência diferente, criando níveis variados de dificuldade.
 
+### 💡 Motivação
+
+A motivação para fazer este mini jogo vem de [memes de Instagram](https://www.instagram.com/p/DNgjJOxyRy6/).
+
 ### Tipos de Blocos
 
 - **Compromisso Leve** (Verde) - 1 hit para quebrar - 10 pontos
