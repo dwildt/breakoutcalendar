@@ -34,10 +34,34 @@ class BreakoutGame {
         
         this.blocks = [];
         this.blockTypes = {
-            LIGHT: { hits: 1, color: '#4caf50', points: 10 },
-            MEDIUM: { hits: 2, color: '#ff9800', points: 20 },
-            MEETING: { hits: 3, color: '#f44336', points: 30 },
-            ALL_HANDS: { hits: Infinity, color: '#ff7b00', points: 0 }
+            LIGHT: {
+                hits: 1,
+                color: '#4caf50',
+                points: 10,
+                displayNames: ['Focus Mode', 'Study Time', 'Stand Up Meeting'],
+                displayNamesWeekend: ['Grocery Store', 'Park', 'Basketball Practice', 'Soccer Practice']
+            },
+            MEDIUM: {
+                hits: 2,
+                color: '#ff9800',
+                points: 20,
+                displayNames: ['1:1 Meeting', 'Team Meeting', 'Team Planning', 'Team Retrospective'],
+                displayNamesWeekend: ['House Cleaning', 'Garage Sale']
+            },
+            HARD: {
+                hits: 3,
+                color: '#f44336',
+                points: 30,
+                displayNames: ['Team Building', 'Performance Review'],
+                displayNamesWeekend: ['Gardening', 'Family Lunch']
+            },
+            INDESTRUCTIBLE: {
+                hits: Infinity,
+                color: '#ff7b00',
+                points: 0,
+                displayNames: ['All Hands Meeting', 'EoY Party'],
+                displayNamesWeekend: ['All Hands Meeting', 'EoY Party']
+            }
         };
         
         this.keys = { left: false, right: false };
@@ -59,13 +83,20 @@ class BreakoutGame {
         this.blocks = [];
         const cols = 7, rows = 6;
         const blockWidth = 100, blockHeight = 30;
-        
+
         for (let row = 0; row < rows; row++) {
             for (let col = 0; col < cols; col++) {
                 let type = Math.random() < 0.5 ? 'LIGHT' : 'MEDIUM';
-                if (Math.random() < 0.1) type = 'MEETING';
-                if (Math.random() < 0.05) type = 'ALL_HANDS';
-                
+                if (Math.random() < 0.1) type = 'HARD';
+                if (Math.random() < 0.05) type = 'INDESTRUCTIBLE';
+
+                // Use weekend names for Saturday (col 5) and Sunday (col 6)
+                const isWeekend = col >= 5;
+                const displayNames = isWeekend
+                    ? this.blockTypes[type].displayNamesWeekend
+                    : this.blockTypes[type].displayNames;
+                const displayName = displayNames[Math.floor(Math.random() * displayNames.length)];
+
                 this.blocks.push({
                     x: col * (blockWidth + 5) + 20,
                     y: row * (blockHeight + 5) + 80,
@@ -74,7 +105,9 @@ class BreakoutGame {
                     type: type,
                     hits: this.blockTypes[type].hits,
                     maxHits: this.blockTypes[type].hits,
-                    destroyed: false
+                    destroyed: false,
+                    displayName: displayName,
+                    day: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'][col]
                 });
             }
         }
@@ -156,8 +189,8 @@ class BreakoutGame {
                 this.ball.y >= block.y && this.ball.y <= block.y + block.height) {
                 
                 this.ball.dy = -this.ball.dy;
-                
-                if (block.type !== 'ALL_HANDS') {
+
+                if (block.type !== 'INDESTRUCTIBLE') {
                     block.hits--;
                     if (block.hits <= 0) {
                         block.destroyed = true;
@@ -176,7 +209,7 @@ class BreakoutGame {
             return;
         }
         
-        const destructibleBlocks = this.blocks.filter(b => b.type !== 'ALL_HANDS');
+        const destructibleBlocks = this.blocks.filter(b => b.type !== 'INDESTRUCTIBLE');
         const destroyedBlocks = destructibleBlocks.filter(b => b.destroyed);
         
         if (destroyedBlocks.length === destructibleBlocks.length) {
@@ -279,8 +312,8 @@ describe('BreakoutGame', () => {
     test('should have correct block types', () => {
         expect(game.blockTypes.LIGHT.hits).toBe(1);
         expect(game.blockTypes.MEDIUM.hits).toBe(2);
-        expect(game.blockTypes.MEETING.hits).toBe(3);
-        expect(game.blockTypes.ALL_HANDS.hits).toBe(Infinity);
+        expect(game.blockTypes.HARD.hits).toBe(3);
+        expect(game.blockTypes.INDESTRUCTIBLE.hits).toBe(Infinity);
     });
 
     test('should create blocks with correct dimensions', () => {
@@ -427,17 +460,17 @@ describe('BreakoutGame', () => {
         expect(game.blocksDestroyed).toBe(1);
     });
 
-    test('should not destroy ALL_HANDS blocks', () => {
+    test('should not destroy INDESTRUCTIBLE blocks', () => {
         game.createBlocks();
-        const allHandsBlock = game.blocks.find(b => b.type === 'ALL_HANDS');
-        
-        if (allHandsBlock) {
-            game.ball.x = allHandsBlock.x + allHandsBlock.width / 2;
-            game.ball.y = allHandsBlock.y + allHandsBlock.height / 2;
-            
+        const indestructibleBlock = game.blocks.find(b => b.type === 'INDESTRUCTIBLE');
+
+        if (indestructibleBlock) {
+            game.ball.x = indestructibleBlock.x + indestructibleBlock.width / 2;
+            game.ball.y = indestructibleBlock.y + indestructibleBlock.height / 2;
+
             game.checkCollisions();
-            
-            expect(allHandsBlock.destroyed).toBe(false);
+
+            expect(indestructibleBlock.destroyed).toBe(false);
             expect(game.blocksDestroyed).toBe(0);
         }
     });
@@ -467,9 +500,9 @@ describe('BreakoutGame', () => {
         const spy = jest.spyOn(game, 'gameWon').mockImplementation();
         game.createBlocks();
         
-        // Mark all non-ALL_HANDS blocks as destroyed
+        // Mark all non-INDESTRUCTIBLE blocks as destroyed
         game.blocks.forEach(block => {
-            if (block.type !== 'ALL_HANDS') {
+            if (block.type !== 'INDESTRUCTIBLE') {
                 block.destroyed = true;
             }
         });
@@ -500,10 +533,90 @@ describe('BreakoutGame', () => {
     test('should restart game', () => {
         const startSpy = jest.spyOn(game, 'start');
         const stopSpy = jest.spyOn(game, 'stop');
-        
+
         game.restart();
-        
+
         expect(stopSpy).toHaveBeenCalled();
         expect(startSpy).toHaveBeenCalled();
+    });
+
+    test('should use weekday names for Monday through Friday blocks', () => {
+        game.createBlocks();
+
+        // Get blocks from Monday (col 0) through Friday (col 4)
+        const weekdayBlocks = game.blocks.filter(block => {
+            const day = block.day;
+            return ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'].includes(day);
+        });
+
+        const weekdayNames = [
+            'Focus Mode', 'Study Time', 'Stand Up Meeting',
+            '1:1 Meeting', 'Team Meeting', 'Team Planning', 'Team Retrospective',
+            'Team Building', 'Performance Review',
+            'All Hands Meeting', 'EoY Party'
+        ];
+
+        weekdayBlocks.forEach(block => {
+            expect(weekdayNames).toContain(block.displayName);
+        });
+    });
+
+    test('should use weekend names for Saturday and Sunday blocks', () => {
+        game.createBlocks();
+
+        // Get blocks from Saturday (col 5) and Sunday (col 6)
+        const weekendBlocks = game.blocks.filter(block => {
+            const day = block.day;
+            return ['saturday', 'sunday'].includes(day);
+        });
+
+        const weekendNames = [
+            'Grocery Store', 'Park', 'Basketball Practice', 'Soccer Practice',
+            'House Cleaning', 'Garage Sale',
+            'Gardening', 'Family Lunch',
+            'All Hands Meeting', 'EoY Party'
+        ];
+
+        weekendBlocks.forEach(block => {
+            expect(weekendNames).toContain(block.displayName);
+        });
+    });
+
+    test('should not use weekend names on weekdays', () => {
+        game.createBlocks();
+
+        const weekdayBlocks = game.blocks.filter(block => {
+            const day = block.day;
+            return ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'].includes(day);
+        });
+
+        const weekendOnlyNames = [
+            'Grocery Store', 'Park', 'Basketball Practice', 'Soccer Practice',
+            'House Cleaning', 'Garage Sale',
+            'Gardening', 'Family Lunch'
+        ];
+
+        weekdayBlocks.forEach(block => {
+            expect(weekendOnlyNames).not.toContain(block.displayName);
+        });
+    });
+
+    test('should not use weekday-only names on weekends', () => {
+        game.createBlocks();
+
+        const weekendBlocks = game.blocks.filter(block => {
+            const day = block.day;
+            return ['saturday', 'sunday'].includes(day);
+        });
+
+        const weekdayOnlyNames = [
+            'Focus Mode', 'Study Time', 'Stand Up Meeting',
+            '1:1 Meeting', 'Team Meeting', 'Team Planning', 'Team Retrospective',
+            'Team Building', 'Performance Review'
+        ];
+
+        weekendBlocks.forEach(block => {
+            expect(weekdayOnlyNames).not.toContain(block.displayName);
+        });
     });
 });

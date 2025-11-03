@@ -35,7 +35,7 @@ function updateTexts() {
 
 function updateDocumentLanguage() {
     document.documentElement.lang = currentLanguage === 'pt' ? 'pt-BR' : 
-                                   currentLanguage === 'es' ? 'es-ES' : 'en-US';
+        currentLanguage === 'es' ? 'es-ES' : 'en-US';
 }
 
 function getText(key) {

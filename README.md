@@ -12,10 +12,27 @@ A motivação para fazer este mini jogo vem de [memes de Instagram](https://www.
 
 ### Tipos de Blocos
 
-- **Compromisso Leve** (Verde) - 1 hit para quebrar - 10 pontos
-- **Compromisso Médio** (Laranja) - 2 hits para quebrar - 20 pontos  
-- **Reunião** (Vermelho) - 3 hits para quebrar - 30 pontos
-- **All Hands** (Gradiente Wildtech) - Indestrutível - 0 pontos
+Os blocos agora apresentam visual inspirado no Google Calendar, com cantos arredondados, borda de destaque à esquerda e exibição de nomes e horários dos compromissos:
+
+#### Segunda a Sexta
+- **Compromissos Leves** (Verde) - 1 hit - 10 pontos
+  - Focus Mode, Study Time, Stand Up Meeting
+- **Compromissos Médios** (Laranja) - 2 hits - 20 pontos
+  - 1:1 Meeting, Team Meeting, Team Planning, Team Retrospective
+- **Compromissos Difíceis** (Vermelho) - 3 hits - 30 pontos
+  - Team Building, Performance Review
+- **Indestrutível** (Gradiente Wildtech) - Indestrutível - 0 pontos
+  - All Hands Meeting, EoY Party (apenas 1 por jogo)
+
+#### Sábado e Domingo (Fim de Semana)
+- **Compromissos Leves** (Verde) - 1 hit - 10 pontos
+  - Grocery Store, Park, Basketball Practice, Soccer Practice
+- **Compromissos Médios** (Laranja) - 2 hits - 20 pontos
+  - House Cleaning, Garage Sale
+- **Compromissos Difíceis** (Vermelho) - 3 hits - 30 pontos
+  - Gardening, Family Lunch
+- **Indestrutível** (Gradiente Wildtech) - Indestrutível - 0 pontos
+  - All Hands Meeting, EoY Party (apenas 1 por jogo)
 
 ### Layout do Jogo
 
@@ -37,9 +54,10 @@ Jogue online em: [https://dwildt.github.io/breakoutcalendar](https://dwildt.gith
 ## 🛠 Tecnologias
 
 - **JavaScript Vanilla** - Lógica do jogo
-- **HTML5 Canvas** - Renderização gráfica  
+- **HTML5 Canvas** - Renderização gráfica
 - **CSS3** - Estilização e responsividade
 - **Jest** - Testes unitários
+- **ESLint** - Qualidade e padronização de código
 - **LocalStorage** - Persistência de dados
 
 ## 🎨 Design
@@ -65,6 +83,24 @@ npm test:coverage
 ```
 
 Para mais detalhes sobre testes, consulte o arquivo [testing.md](testing.md).
+
+## 🔍 Qualidade de Código (Linting)
+
+O projeto utiliza ESLint para garantir qualidade e consistência do código.
+
+```bash
+# Verificar problemas de código
+npm run lint
+
+# Corrigir problemas automaticamente
+npm run lint:fix
+```
+
+**Padrão de código:**
+- Indentação: 4 espaços
+- Aspas: Simples ('...')
+- Ponto-e-vírgula: Obrigatório
+- Ambiente: Browser + ES2021
 
 ## 🌍 Internacionalização
 

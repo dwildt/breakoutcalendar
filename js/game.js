@@ -39,10 +39,30 @@ class BreakoutGame {
         
         this.blocks = [];
         this.blockTypes = {
-            LIGHT: { hits: 1, points: 10 },
-            MEDIUM: { hits: 2, points: 20 },
-            MEETING: { hits: 3, points: 30 },
-            ALL_HANDS: { hits: Infinity, points: 0 }
+            LIGHT: {
+                hits: 1,
+                points: 10,
+                displayNames: ['Focus Mode', 'Study Time', 'Stand Up Meeting'],
+                displayNamesWeekend: ['Grocery Store', 'Park', 'Basketball Practice', 'Soccer Practice']
+            },
+            MEDIUM: {
+                hits: 2,
+                points: 20,
+                displayNames: ['1:1 Meeting', 'Team Meeting', 'Team Planning', 'Team Retrospective'],
+                displayNamesWeekend: ['House Cleaning', 'Garage Sale']
+            },
+            HARD: {
+                hits: 3,
+                points: 30,
+                displayNames: ['Team Building', 'Performance Review'],
+                displayNamesWeekend: ['Gardening', 'Family Lunch']
+            },
+            INDESTRUCTIBLE: {
+                hits: Infinity,
+                points: 0,
+                displayNames: ['All Hands Meeting', 'EoY Party'],
+                displayNamesWeekend: ['All Hands Meeting', 'EoY Party']
+            }
         };
         
         this.keys = {
@@ -60,27 +80,27 @@ class BreakoutGame {
     
     getBlockColors() {
         const body = document.body;
-        
+
         if (body.classList.contains('matrix-theme')) {
             return {
-                LIGHT: '#00ff41',      // verde Matrix
-                MEDIUM: '#39ff14',     // verde neon
-                MEETING: '#00cc33',    // verde vibrante
-                ALL_HANDS: '#39ff14'   // verde neon
+                LIGHT: '#00ff41',           // verde Matrix
+                MEDIUM: '#39ff14',          // verde neon
+                HARD: '#00cc33',            // verde vibrante
+                INDESTRUCTIBLE: '#39ff14'   // verde neon
             };
         } else if (body.classList.contains('severance-theme')) {
             return {
-                LIGHT: '#38bdf8',      // azul céu
-                MEDIUM: '#2563eb',     // azul cobalto
-                MEETING: '#1d4ed8',    // azul royal
-                ALL_HANDS: '#0284c7'   // azul oceano
+                LIGHT: '#38bdf8',           // azul céu
+                MEDIUM: '#2563eb',          // azul cobalto
+                HARD: '#1d4ed8',            // azul royal
+                INDESTRUCTIBLE: '#0284c7'   // azul oceano
             };
         } else {
             return {
-                LIGHT: '#4caf50',      // verde
-                MEDIUM: '#ff9800',     // laranja
-                MEETING: '#f44336',    // vermelho
-                ALL_HANDS: '#ff7b00'   // laranja Wildtech
+                LIGHT: '#4caf50',           // verde
+                MEDIUM: '#ff9800',          // laranja
+                HARD: '#f44336',            // vermelho
+                INDESTRUCTIBLE: '#ff7b00'   // laranja Wildtech
             };
         }
     }
@@ -163,32 +183,61 @@ class BreakoutGame {
         this.ball.y = this.paddle.y - this.ball.radius - 5;
     }
     
+    generateRandomTimeSlot() {
+        const startHour = 9 + Math.floor(Math.random() * 9); // 9 AM to 5 PM
+        const endHour = startHour + 1;
+
+        const formatHour = (hour) => {
+            const period = hour >= 12 ? 'PM' : 'AM';
+            const displayHour = hour > 12 ? hour - 12 : (hour === 0 ? 12 : hour);
+            return `${displayHour}:00 ${period}`;
+        };
+
+        return `${formatHour(startHour)} - ${formatHour(endHour)}`;
+    }
+
     createBlocks() {
         this.blocks = [];
         const canvasWidth = 800;
         const cols = 7;
         const rows = 6;
         const blockWidth = (canvasWidth - 40) / cols;
-        const blockHeight = 30;
+        const blockHeight = 50;  // Increased from 30px
         const padding = 5;
-        
+
         const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-        
+
+        // Choose random position for exactly 1 INDESTRUCTIBLE block
+        const totalBlocks = cols * rows;
+        const indestructibleIndex = Math.floor(Math.random() * totalBlocks);
+
+        let blockIndex = 0;
+
         for (let row = 0; row < rows; row++) {
             for (let col = 0; col < cols; col++) {
                 let type;
-                const random = Math.random();
-                
-                if (random < 0.05) {
-                    type = 'ALL_HANDS';
-                } else if (random < 0.2) {
-                    type = 'MEETING';
-                } else if (random < 0.5) {
-                    type = 'MEDIUM';
+
+                if (blockIndex === indestructibleIndex) {
+                    type = 'INDESTRUCTIBLE';
                 } else {
-                    type = 'LIGHT';
+                    const random = Math.random();
+                    if (random < 0.15) {
+                        type = 'HARD';
+                    } else if (random < 0.5) {
+                        type = 'MEDIUM';
+                    } else {
+                        type = 'LIGHT';
+                    }
                 }
-                
+
+                // Randomly select display name from the appropriate array
+                // Use weekend names for Saturday (col 5) and Sunday (col 6)
+                const isWeekend = col >= 5;
+                const displayNames = isWeekend
+                    ? this.blockTypes[type].displayNamesWeekend
+                    : this.blockTypes[type].displayNames;
+                const displayName = displayNames[Math.floor(Math.random() * displayNames.length)];
+
                 const block = {
                     x: col * (blockWidth + padding) + 20,
                     y: row * (blockHeight + padding) + 80,
@@ -198,10 +247,13 @@ class BreakoutGame {
                     hits: this.blockTypes[type].hits,
                     maxHits: this.blockTypes[type].hits,
                     day: days[col],
-                    destroyed: false
+                    destroyed: false,
+                    displayName: displayName,
+                    timeSlot: this.generateRandomTimeSlot()
                 };
-                
+
                 this.blocks.push(block);
+                blockIndex++;
             }
         }
     }
@@ -308,10 +360,10 @@ class BreakoutGame {
                 this.ball.y - this.ball.radius <= block.y + block.height) {
                 
                 this.ball.dy = -this.ball.dy;
-                
-                if (block.type !== 'ALL_HANDS') {
+
+                if (block.type !== 'INDESTRUCTIBLE') {
                     block.hits--;
-                    
+
                     if (block.hits <= 0) {
                         block.destroyed = true;
                         this.blocksDestroyed++;
@@ -331,7 +383,7 @@ class BreakoutGame {
             return;
         }
         
-        const destructibleBlocks = this.blocks.filter(block => block.type !== 'ALL_HANDS');
+        const destructibleBlocks = this.blocks.filter(block => block.type !== 'INDESTRUCTIBLE');
         const destroyedBlocks = destructibleBlocks.filter(block => block.destroyed);
         
         if (destroyedBlocks.length === destructibleBlocks.length) {
@@ -346,22 +398,36 @@ class BreakoutGame {
         this.ball.dy = -Math.abs(this.ball.dy);
     }
     
+    drawRoundedRect(x, y, width, height, radius) {
+        this.ctx.beginPath();
+        this.ctx.moveTo(x + radius, y);
+        this.ctx.lineTo(x + width - radius, y);
+        this.ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+        this.ctx.lineTo(x + width, y + height - radius);
+        this.ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+        this.ctx.lineTo(x + radius, y + height);
+        this.ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+        this.ctx.lineTo(x, y + radius);
+        this.ctx.quadraticCurveTo(x, y, x + radius, y);
+        this.ctx.closePath();
+    }
+
     render() {
         if (!this.canvas || !this.ctx) {
             console.error('Canvas or context not available');
             return;
         }
-        
+
         const canvasWidth = 800;
         const canvasHeight = 600;
-        
+
         this.ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-        
+
         this.renderBlocks();
         this.renderPaddle();
         this.renderBall();
         this.renderDayLabels();
-        
+
         if (this.isPaused) {
             this.renderPauseScreen();
         }
@@ -370,25 +436,30 @@ class BreakoutGame {
     renderBlocks() {
         const colors = this.getBlockColors();
         const body = document.body;
-        
+        const cornerRadius = 8;
+        const accentBorderWidth = 4;
+
         this.blocks.forEach(block => {
             if (block.destroyed) return;
-            
+
             let alpha = 1;
-            
-            if (block.type !== 'ALL_HANDS' && block.hits < block.maxHits) {
+
+            if (block.type !== 'INDESTRUCTIBLE' && block.hits < block.maxHits) {
                 alpha = 0.3 + (0.7 * block.hits / block.maxHits);
             }
-            
+
             this.ctx.save();
             this.ctx.globalAlpha = alpha;
-            
-            if (block.type === 'ALL_HANDS') {
+
+            // Draw main block background with rounded corners
+            this.drawRoundedRect(block.x, block.y, block.width, block.height, cornerRadius);
+
+            if (block.type === 'INDESTRUCTIBLE') {
                 const gradient = this.ctx.createLinearGradient(
-                    block.x, block.y, 
+                    block.x, block.y,
                     block.x + block.width, block.y + block.height
                 );
-                
+
                 if (body.classList.contains('matrix-theme')) {
                     gradient.addColorStop(0, '#00cc33');  // verde escuro
                     gradient.addColorStop(0.5, '#00ff41'); // verde Matrix
@@ -404,23 +475,51 @@ class BreakoutGame {
             } else {
                 this.ctx.fillStyle = colors[block.type];
             }
-            
-            this.ctx.fillRect(block.x, block.y, block.width, block.height);
-            
-            // Special styling for ALL_HANDS in Matrix theme
-            if (block.type === 'ALL_HANDS' && body.classList.contains('matrix-theme')) {
+
+            this.ctx.fill();
+
+            // Draw left accent border
+            this.ctx.save();
+            this.ctx.beginPath();
+            this.ctx.moveTo(block.x + cornerRadius, block.y);
+            this.ctx.lineTo(block.x, block.y + cornerRadius);
+            this.ctx.lineTo(block.x, block.y + block.height - cornerRadius);
+            this.ctx.lineTo(block.x + cornerRadius, block.y + block.height);
+            this.ctx.lineTo(block.x + accentBorderWidth, block.y + block.height);
+            this.ctx.lineTo(block.x + accentBorderWidth, block.y);
+            this.ctx.closePath();
+            this.ctx.fillStyle = colors[block.type];
+            this.ctx.globalAlpha = 1; // Full opacity for accent border
+            this.ctx.fill();
+            this.ctx.restore();
+
+            // Special styling for INDESTRUCTIBLE in Matrix theme
+            if (block.type === 'INDESTRUCTIBLE' && body.classList.contains('matrix-theme')) {
+                this.drawRoundedRect(block.x, block.y, block.width, block.height, cornerRadius);
                 this.ctx.strokeStyle = '#39ff14';
                 this.ctx.lineWidth = 2;
                 this.ctx.shadowColor = '#39ff14';
                 this.ctx.shadowBlur = 10;
-                this.ctx.strokeRect(block.x, block.y, block.width, block.height);
+                this.ctx.stroke();
                 this.ctx.shadowBlur = 0; // Reset shadow
-            } else {
-                this.ctx.strokeStyle = '#fff';
-                this.ctx.lineWidth = 1;
-                this.ctx.strokeRect(block.x, block.y, block.width, block.height);
             }
-            
+
+            // Render text (display name and time slot)
+            this.ctx.globalAlpha = 1; // Full opacity for text
+            this.ctx.fillStyle = '#fff';
+            this.ctx.textAlign = 'left';
+
+            // Display name (bold, larger font)
+            this.ctx.font = 'bold 11px Arial';
+            const textX = block.x + accentBorderWidth + 6;
+            const nameY = block.y + 18;
+            this.ctx.fillText(block.displayName, textX, nameY);
+
+            // Time slot (regular, smaller font)
+            this.ctx.font = '9px Arial';
+            const timeY = block.y + 33;
+            this.ctx.fillText(block.timeSlot, textX, timeY);
+
             this.ctx.restore();
         });
     }
