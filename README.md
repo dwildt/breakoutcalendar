@@ -16,23 +16,23 @@ Os blocos agora apresentam visual inspirado no Google Calendar, com cantos arred
 
 #### Segunda a Sexta
 - **Compromissos Leves** (Verde) - 1 hit - 10 pontos
-  - Focus Mode, Study Time, Stand Up Meeting
+  - Focus Mode, Study Time, Daily Sync
 - **Compromissos Médios** (Laranja) - 2 hits - 20 pontos
-  - 1:1 Meeting, Team Meeting, Team Planning, Team Retrospective
+  - 1:1 Meeting, Team Meeting, Team Planning, Team Retro
 - **Compromissos Difíceis** (Vermelho) - 3 hits - 30 pontos
-  - Team Building, Performance Review
+  - Team Building, Perf. Review
 - **Indestrutível** (Gradiente Wildtech) - Indestrutível - 0 pontos
-  - All Hands Meeting, EoY Party (apenas 1 por jogo)
+  - All Hands, EoY Party (apenas 1 por jogo)
 
 #### Sábado e Domingo (Fim de Semana)
 - **Compromissos Leves** (Verde) - 1 hit - 10 pontos
-  - Grocery Store, Park, Basketball Practice, Soccer Practice
+  - Groceries, Park, Basketball, Soccer
 - **Compromissos Médios** (Laranja) - 2 hits - 20 pontos
   - House Cleaning, Garage Sale
 - **Compromissos Difíceis** (Vermelho) - 3 hits - 30 pontos
   - Gardening, Family Lunch
 - **Indestrutível** (Gradiente Wildtech) - Indestrutível - 0 pontos
-  - All Hands Meeting, EoY Party (apenas 1 por jogo)
+  - All Hands, EoY Party (apenas 1 por jogo)
 
 ### Layout do Jogo
 
