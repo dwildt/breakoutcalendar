@@ -42,26 +42,26 @@ class BreakoutGame {
             LIGHT: {
                 hits: 1,
                 points: 10,
-                displayNames: ['Focus Mode', 'Study Time', 'Stand Up Meeting'],
-                displayNamesWeekend: ['Grocery Store', 'Park', 'Basketball Practice', 'Soccer Practice']
+                displayNames: ['Focus Mode', 'Study Time', 'Daily Sync'],
+                displayNamesWeekend: ['Groceries', 'Park', 'Basketball', 'Soccer']
             },
             MEDIUM: {
                 hits: 2,
                 points: 20,
-                displayNames: ['1:1 Meeting', 'Team Meeting', 'Team Planning', 'Team Retrospective'],
+                displayNames: ['1:1 Meeting', 'Team Meeting', 'Team Planning', 'Team Retro'],
                 displayNamesWeekend: ['House Cleaning', 'Garage Sale']
             },
             HARD: {
                 hits: 3,
                 points: 30,
-                displayNames: ['Team Building', 'Performance Review'],
+                displayNames: ['Team Building', 'Perf. Review'],
                 displayNamesWeekend: ['Gardening', 'Family Lunch']
             },
             INDESTRUCTIBLE: {
                 hits: Infinity,
                 points: 0,
-                displayNames: ['All Hands Meeting', 'EoY Party'],
-                displayNamesWeekend: ['All Hands Meeting', 'EoY Party']
+                displayNames: ['All Hands', 'EoY Party'],
+                displayNamesWeekend: ['All Hands', 'EoY Party']
             }
         };
         
