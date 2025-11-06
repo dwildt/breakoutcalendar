@@ -38,29 +38,29 @@ class BreakoutGame {
                 hits: 1,
                 color: '#4caf50',
                 points: 10,
-                displayNames: ['Focus Mode', 'Study Time', 'Stand Up Meeting'],
-                displayNamesWeekend: ['Grocery Store', 'Park', 'Basketball Practice', 'Soccer Practice']
+                displayNames: ['Focus Mode', 'Study Time', 'Daily Sync'],
+                displayNamesWeekend: ['Groceries', 'Park', 'Basketball', 'Soccer']
             },
             MEDIUM: {
                 hits: 2,
                 color: '#ff9800',
                 points: 20,
-                displayNames: ['1:1 Meeting', 'Team Meeting', 'Team Planning', 'Team Retrospective'],
+                displayNames: ['1:1 Meeting', 'Team Meeting', 'Team Planning', 'Team Retro'],
                 displayNamesWeekend: ['House Cleaning', 'Garage Sale']
             },
             HARD: {
                 hits: 3,
                 color: '#f44336',
                 points: 30,
-                displayNames: ['Team Building', 'Performance Review'],
+                displayNames: ['Team Building', 'Perf. Review'],
                 displayNamesWeekend: ['Gardening', 'Family Lunch']
             },
             INDESTRUCTIBLE: {
                 hits: Infinity,
                 color: '#ff7b00',
                 points: 0,
-                displayNames: ['All Hands Meeting', 'EoY Party'],
-                displayNamesWeekend: ['All Hands Meeting', 'EoY Party']
+                displayNames: ['All Hands', 'EoY Party'],
+                displayNamesWeekend: ['All Hands', 'EoY Party']
             }
         };
         
@@ -550,10 +550,10 @@ describe('BreakoutGame', () => {
         });
 
         const weekdayNames = [
-            'Focus Mode', 'Study Time', 'Stand Up Meeting',
-            '1:1 Meeting', 'Team Meeting', 'Team Planning', 'Team Retrospective',
-            'Team Building', 'Performance Review',
-            'All Hands Meeting', 'EoY Party'
+            'Focus Mode', 'Study Time', 'Daily Sync',
+            '1:1 Meeting', 'Team Meeting', 'Team Planning', 'Team Retro',
+            'Team Building', 'Perf. Review',
+            'All Hands', 'EoY Party'
         ];
 
         weekdayBlocks.forEach(block => {
@@ -571,10 +571,10 @@ describe('BreakoutGame', () => {
         });
 
         const weekendNames = [
-            'Grocery Store', 'Park', 'Basketball Practice', 'Soccer Practice',
+            'Groceries', 'Park', 'Basketball', 'Soccer',
             'House Cleaning', 'Garage Sale',
             'Gardening', 'Family Lunch',
-            'All Hands Meeting', 'EoY Party'
+            'All Hands', 'EoY Party'
         ];
 
         weekendBlocks.forEach(block => {
@@ -591,7 +591,7 @@ describe('BreakoutGame', () => {
         });
 
         const weekendOnlyNames = [
-            'Grocery Store', 'Park', 'Basketball Practice', 'Soccer Practice',
+            'Groceries', 'Park', 'Basketball', 'Soccer',
             'House Cleaning', 'Garage Sale',
             'Gardening', 'Family Lunch'
         ];
@@ -610,9 +610,9 @@ describe('BreakoutGame', () => {
         });
 
         const weekdayOnlyNames = [
-            'Focus Mode', 'Study Time', 'Stand Up Meeting',
-            '1:1 Meeting', 'Team Meeting', 'Team Planning', 'Team Retrospective',
-            'Team Building', 'Performance Review'
+            'Focus Mode', 'Study Time', 'Daily Sync',
+            '1:1 Meeting', 'Team Meeting', 'Team Planning', 'Team Retro',
+            'Team Building', 'Perf. Review'
         ];
 
         weekendBlocks.forEach(block => {

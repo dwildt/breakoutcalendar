@@ -8,16 +8,16 @@ Transform breakout game blocks to look like realistic Google Calendar appointmen
 ## Final Block Type Mapping
 
 ### Monday - Friday (Weekdays)
-- **LIGHT** (1 hit, green) → "Focus Mode", "Study Time", "Stand Up Meeting"
-- **MEDIUM** (2 hits, orange) → "1:1 Meeting", "Team Meeting", "Team Planning", "Team Retrospective"
-- **HARD** (3 hits, red) → "Team Building", "Performance Review"
-- **INDESTRUCTIBLE** (infinite hits, gradient) → "All Hands Meeting", "EoY Party" (only 1 per game)
+- **LIGHT** (1 hit, green) → "Focus Mode", "Study Time", "Daily Sync"
+- **MEDIUM** (2 hits, orange) → "1:1 Meeting", "Team Meeting", "Team Planning", "Team Retro"
+- **HARD** (3 hits, red) → "Team Building", "Perf. Review"
+- **INDESTRUCTIBLE** (infinite hits, gradient) → "All Hands", "EoY Party" (only 1 per game)
 
 ### Saturday - Sunday (Weekends)
-- **LIGHT** (1 hit, green) → "Grocery Store", "Park", "Basketball Practice", "Soccer Practice"
+- **LIGHT** (1 hit, green) → "Groceries", "Park", "Basketball", "Soccer"
 - **MEDIUM** (2 hits, orange) → "House Cleaning", "Garage Sale"
 - **HARD** (3 hits, red) → "Gardening", "Family Lunch"
-- **INDESTRUCTIBLE** (infinite hits, gradient) → "All Hands Meeting", "EoY Party" (only 1 per game)
+- **INDESTRUCTIBLE** (infinite hits, gradient) → "All Hands", "EoY Party" (only 1 per game)
 
 ## Visual Improvements ✅
 1. ✅ **Added rounded corners** (8px radius) using custom `drawRoundedRect()` function
